@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
+import EVIRONMENT from "./environment.config.js";
 
+console.log(EVIRONMENT)
 const MONGO_URI = "mongodb://localhost:27017/";
 const MONGO_DB_NAME = "Proyecto_MongoDB";
 
