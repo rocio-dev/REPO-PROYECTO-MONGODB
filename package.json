@@ -2,10 +2,10 @@
   "name": "trabajo_mongodb",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "./src/main.js",
   "scripts": {
-    "star": "node ./main.js",
-    "dev": "node --watch ./main.js",
+    "start": "node ./src/main.js",
+    "dev": "node --watch ./src/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -13,6 +13,7 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "mongoose": "^9.10.4",
     "uuid": "^14.0.2"
   }
 }
