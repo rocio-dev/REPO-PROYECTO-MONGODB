@@ -7,13 +7,15 @@ connectMongoDB();
 
 
 function crearUsuario () {
-    Usuario.create({nombre:'Pepito', contraseña:'pepito123',email:'pepito@gmail.com'})
+    Usuario.create({nombre: nombre, contraseña: contraseña,email: email})
 }
 
 //crearUsuario()
 
+
 function crearEspacioTrabajo (){
-    Workspace.create ({nombre: 'General', descripcion: 'Se habla de todo'})
+    Workspace.create ({nombre: nombre, descripcion: descripcion})
 }
 
 //crearEspacioTrabajo()
+
