@@ -58,10 +58,10 @@ class UsuarioRepository{
         await Usuario.findByIdAndDelete (usuario_id)
     }
 
-    /* async UsuarioInactivo(usuario_id) {
+    async UsuarioInactivo(usuario_id) {
         await Usuario.findByIdAndUpdate(usuario_id, {activo: false})
         console.log(resultado)
-    } Ctrl + Alt + A*/
+    }
 
     }
 

@@ -18,6 +18,9 @@ const workspaceSchema = new mongoose.Schema(
         }
     }
 );
-const Workspace = mongoose.model('EspacioTrabajo', workspaceSchema);
+
+export const NOMBRE_COLECCION_ESPACIO_TRABAJO = 'Espacio_Trabajo'
+
+const Workspace = mongoose.model(NOMBRE_COLECCION_ESPACIO_TRABAJO, workspaceSchema);
 
 export default Workspace;

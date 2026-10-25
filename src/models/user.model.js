@@ -18,17 +18,18 @@ const usuarioSchema= new mongoose.Schema(
         fecha_de_creacion:{
             type: Date,
             default: Date.now
-        }
-        /*
+        },
+        
         activo: {
             type:Boolean,
             default:true
         }
-        */
+        
        //Por las dudas si hace falta agregarlo
     }
 )
+export const NOMBRE_COLECCION_USUARIO= ('Usuario')
 
-const Usuario = mongoose.model('Usuario', usuarioSchema)
+const Usuario = mongoose.model(NOMBRE_COLECCION_USUARIO, usuarioSchema)
 
 export default Usuario
