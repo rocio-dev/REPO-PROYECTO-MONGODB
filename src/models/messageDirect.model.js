@@ -23,7 +23,7 @@ const mensajeDirectoSchema = new mongoose.Schema(
     }
 )
 
-export const NOMBRE_COLECCION_MENSAJE_DIRECTO = ('Mensaje_directo')
+export const NOMBRE_COLECCION_MENSAJE_DIRECTO = 'Mensaje_directo'
 
 const Mensaje_directo = mongoose.model(NOMBRE_COLECCION_MENSAJE_DIRECTO,mensajeDirectoSchema)
 

@@ -32,7 +32,7 @@ const miembroSchema = new mongoose.Schema(
     }
 )
 
-const NOMBRE_COLECCION_MIEMBRO = ('Miembro')
+export const NOMBRE_COLECCION_MIEMBRO = 'Miembro'
 
 const Miembro = mongoose.model(NOMBRE_COLECCION_MIEMBRO, miembroSchema)
 

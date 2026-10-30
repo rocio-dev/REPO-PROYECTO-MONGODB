@@ -22,7 +22,7 @@ const canalSchema = new mongoose.Schema(
     }
 )
 
-export const NOMBRE_COLECCION_CANAL = ('Canal')
+export const NOMBRE_COLECCION_CANAL = 'Canal'
 
 const Canal = mongoose.model(NOMBRE_COLECCION_CANAL,canalSchema)
 

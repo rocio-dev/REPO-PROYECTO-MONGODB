@@ -28,7 +28,7 @@ const usuarioSchema= new mongoose.Schema(
        //Por las dudas si hace falta agregarlo
     }
 )
-export const NOMBRE_COLECCION_USUARIO= ('Usuario')
+export const NOMBRE_COLECCION_USUARIO= 'Usuario'
 
 const Usuario = mongoose.model(NOMBRE_COLECCION_USUARIO, usuarioSchema)
 

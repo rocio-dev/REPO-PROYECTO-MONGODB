@@ -23,7 +23,7 @@ const mensajeCanalSchema = new mongoose.Schema(
     }
 )
 
-export const NOMBRE_COLECCION_MENSAJE_CANAL = ('Mensaje_canal')
+export const NOMBRE_COLECCION_MENSAJE_CANAL = 'Mensaje_canal'
 
 const Mensaje_canal = mongoose.model(NOMBRE_COLECCION_MENSAJE_CANAL,mensajeCanalSchema)
 
