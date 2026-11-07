@@ -5,9 +5,9 @@ import Workspace from "../models/workspace.model.js";
 
 class MemberRepository {
 
-    async crearMiembro(usuario_id,workspace_id,role){
+    async crearMiembro(user_id,workspace_id,role){
         await Miembro.create({
-            id_usuario: usuario_id,
+            id_usuario: user_id,
             id_espacio_trabajo: workspace_id,
             rol: role}
         )
@@ -138,8 +138,8 @@ class MemberRepository {
         return resultado;
     }
 
-    async buscarTodoslosEspaciosTrabajos(usuario_id){
-        const resultado= await Miembro.find({id_usuario:usuario_id})
+    async buscarTodoslosEspaciosTrabajos(user_id){
+        const resultado= await Miembro.find({id_usuario:user_id})
         .populate(
             'id_espacio_trabajo',
             'nombre fecha_creacion'

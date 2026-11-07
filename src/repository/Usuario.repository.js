@@ -1,7 +1,7 @@
 /* Un repository es donde manejamos la comunicacion de nuestros datos 
 Esta carpeta sirve para la comunicacion de la base de datos y el usuario */
 
-import Usuario from "../models/user.model"
+import Usuario from "../models/user.model.js"
 
 class UsuarioRepository{
 
@@ -44,23 +44,27 @@ class UsuarioRepository{
             }
         })
     }
-    async BuscarporId(usuario_id) {
-        const resultado= await Usuario.findByid(usuario_id)
+    async BuscarporId(user_id) {
+        const resultado= await Usuario.findByid(user_id)
         console.log(resultado)
+        return resultado
     }
 
     async BuscarUsuarioporEmail(email) {
         const resultado= await Usuario.findOne({email:email})
-        console.log(resultado)
+        return resultado
     }
 
-    async EliminarUsuarioporId(usuario_id) {
-        await Usuario.findByIdAndDelete (usuario_id)
+    async EliminarUsuarioporId(user_id) {
+        const resultado = await Usuario.findByIdAndDelete (user_id)
+
+        return resultado
     }
 
-    async UsuarioInactivo(usuario_id) {
-        await Usuario.findByIdAndUpdate(usuario_id, {activo: false})
-        console.log(resultado)
+    async UsuarioInactivo(user_id) {
+        const resultado = await Usuario.findByIdAndUpdate(user_id, {activo: false})
+        
+        return resultado
     }
 
     }
