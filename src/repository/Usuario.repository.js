@@ -5,7 +5,7 @@ import Usuario from "../models/user.model.js"
 
 class UsuarioRepository{
 
-    async crearUsuario () {
+    async crearUsuario (nombre, contraseña, email) {
         await Usuario.create({nombre: nombre, contraseña: contraseña, email: email})
     }
 
@@ -45,7 +45,7 @@ class UsuarioRepository{
         })
     }
     async BuscarporId(user_id) {
-        const resultado= await Usuario.findByid(user_id)
+        const resultado= await Usuario.findById(user_id)
         console.log(resultado)
         return resultado
     }
