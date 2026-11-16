@@ -3,8 +3,10 @@ import connectMongoDB from "./config/connectDB.js";
 connectMongoDB();
 
 import express, { request, response } from 'express'
-import usuario_repository from "./repository/Usuario.repository.js";
-import ServerError from "./utils/error.utils.js";
+import middleware_error_server from "./middleware/error.middleware.js";
+import { obtener_usuarios } from "./controllers/controllers.usuario.js";
+import { usuario_X_ID } from "./controllers/controllers.usuario.js";
+import { registrarse } from "./controllers/controllers.registro.js";
 
 const PORT = 8080
 
@@ -22,137 +24,34 @@ app.listen(
     }
 )
 
-app.get(
+/* app.get(
     '/api/status',
-    (request,response) =>
-    {response.send('<h1>Request recibida</h1>')}
-)
+    (request,response,) =>
+    {
+        throw new ServerError("No estas autentificado, 401")
+            console.log(pepe)
+            response.send('<h1>Request recibida</h1>')
+
+        
+    }
+) */
 
 app.post(
     '/api/auth/registro',
-    async (request,response) =>
-    {
-        try{
-
-            console.log("[Registro]",request.body)
-    
-            const {nombre, contraseña, email}= request.body
-    
-            if(!nombre|| !contraseña || !email){
-                throw new ServerError(
-                "Es requerido el Nombre, contraseña y email para registrarte",
-                400
-                )
-            }
-    
-            if (!(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))) {
-                throw new ServerError(
-                    "Email es incorrecto",
-                    400
-                )
-
-        }
-    
-            const email_utilizado = await usuario_repository.BuscarUsuarioporEmail(email)
-            if(email_utilizado){
-                throw new ServerError(
-                    "Ya hay una cuenta con este Email",
-                    400
-                )
-            }
-    
-            await usuario_repository.crearUsuario(nombre, contraseña, email)
-    
-            return response.send({
-                message: "Ya estas registrado. Bienvenido",
-                ok:true,
-                status: 201
-        })
-    
-        }
-        //Error controlado
-        catch(error){
-            if (error.status){
-                return response.send({
-                    ok:false,
-                    status: error.status,
-                    message: error.message
-                    }
-                )
-            }
-            //Error inesperado*
-            else{
-                console.error ('[Server Error]', error.message)
-                return response.send({
-                    ok:false,
-                    status: 500,
-                    message: "Error interno del servidor"
-                    }
-                )
-            }
-        }
-    }
+    registrarse
 )
 
 app.get(
     '/api/usuarios',
-    async (request,response) => {
+    obtener_usuarios
 
-        try{
-            const lista_usuario = await usuario_repository.BuscarUsuario()
-            response.send({
-                message:"Obtener la lista de Usuarios",// Mensaje de la operacion
-                ok: true, //Indica si se resolvio o no
-                status: 200,
-                data:{
-                    Usuarios: lista_usuario
-                }
-            })/* Aca determinamos el formato de como nos tiene que dar la info */
-        }
-        catch(error) {
-            response.send({
-                message: "Error interno del servidor",
-                ok: false,
-                status: 500
-            })
-        }
-    }
 )
 
 app.get(
     '/api/usuarios/:user_id',
-    async (request,response) => {
-        try{
+    usuario_X_ID
+    )
 
-            const ID_Usuario= request.params.user_id // Accedemos a los parametros de la URL
-            const usuario = await usuario_repository.BuscarporId(ID_Usuario)
-
-            if(!usuario){
-                return   response.send({
-                    message: "No se encontro a este Usuario",
-                    ok: false,
-                    status: 404
-                    }
-                )
-            }
-
-            return response.send({
-                message: "Consegui los detalles del usuario exitosamente",
-                ok: true,
-                status: 200,
-                data: {
-                    User: usuario
-                }
-            })
-        }
-
-        catch(error) {
-            console.error(error)
-            response.send({
-                    message: "Error interno del servidor",
-                    ok: false,
-                    status: 500
-                })
-        }
-    }
-)
+    app.use(
+        middleware_error_server
+    )
