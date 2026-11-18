@@ -1,5 +1,5 @@
-import usuario_repository from "../repository/Usuario.repository"
-import ServerError from "../utils/error.utils"
+import usuario_repository from "../repository/Usuario.repository.js"
+import ServerError from "../utils/error.utils.js"
 
 export async function obtener_usuarios (request, response){
 
