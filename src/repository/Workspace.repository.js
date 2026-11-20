@@ -6,7 +6,6 @@ class WorkspaceRepository {
     // Crear un nuevo espacio de trabajo
     async crearEspacioTrabajo(nombre, descripcion) {
         const resultado = await Workspace.create({ nombre: nombre, descripcion: descripcion })
-        console.log(resultado)
         return resultado
     }
 

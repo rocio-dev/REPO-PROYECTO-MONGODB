@@ -1,7 +1,8 @@
 import usuario_repository from "../repository/Usuario.repository.js"
 import ServerError from "../utils/error.utils.js"
 import { comprobar_hash, incriptacion_contraseña } from "../utils/bcrypt.utils.js"
-import Usuario from "../models/user.model.js"
+import jwt from "jsonwebtoken";
+import EVIRONMENT from "../config/environment.config.js";
 
 export async function registrarse (request, response) {
 
@@ -51,7 +52,7 @@ export async function login(request, response) {
     const {email, contraseña} = request.body
 
         if (
-        !email || !contraseña || typeof email !== "string" || typeof password !== "string"
+        !email || !contraseña || typeof email !== "string" || typeof contraseña !== "string"
             ){
         throw new ServerError(
             "La contraseña y el email son requeridos",
@@ -66,24 +67,36 @@ export async function login(request, response) {
                 )
             }
     
-    const verificar_email= await usuario_repository.BuscarUsuarioporEmail(email)
-        if(!verificar_email){
+    const user= await usuario_repository.BuscarUsuarioporEmail(email)
+        if(!user){
             throw new ServerError(
                 "Usuario no encontrado",
                 404
             )
         }
-    const contraseñaValida= await comprobar_hash(contraseña, Usuario.contraseña)
+    const contraseñaValida= await comprobar_hash(contraseña, user.contraseña)
         if (!contraseñaValida){
             throw new ServerError(
                 "Credencial incorrecta",
                 400
             )
         }
-
+    
+    const credencial_token= jwt.sign(
+        {
+            id: user._id,
+            nombre: user.nombre,
+            email: user.email
+        },
+        EVIRONMENT.JWT_SECRET_KEY
+    )
+    
     return response.send({
         message: "Te pudiste logear correctamente",
         ok:true,
-        status:200
+        status:200,
+        data:{
+            credencial_token
+        }
 })
 }

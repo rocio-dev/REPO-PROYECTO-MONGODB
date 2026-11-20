@@ -6,7 +6,7 @@ import Workspace from "../models/workspace.model.js";
 class MemberRepository {
 
     async crearMiembro(user_id,workspace_id,role){
-        await Miembro.create({
+        const resultado= await Miembro.create({
             id_usuario: user_id,
             id_espacio_trabajo: workspace_id,
             rol: role}
@@ -61,10 +61,8 @@ class MemberRepository {
         return resultado;
     }
 
-    // 3. Que el miembro pueda unirse a un espacio de trabajo
     async unirseAEspacioTrabajo(id_usuario, id_espacio_trabajo, rol = 'user') {
-        // Verificamos si ya existe el registro de este usuario en el espacio de trabajo
-        let miembroExistente = await Miembro.findOne({
+        const miembroExistente = await Miembro.findOne({
             id_usuario: id_usuario,
             id_espacio_trabajo: id_espacio_trabajo
         });
@@ -129,15 +127,6 @@ class MemberRepository {
         return resultado;
     }
 
-    async eliminarMiembroDeEspacioTrabajo(id_usuario, id_espacio_trabajo) {
-        const resultado = await Miembro.findOneAndDelete({
-            id_usuario: id_usuario,
-            id_espacio_trabajo: id_espacio_trabajo
-        });
-        console.log("Miembro eliminado del espacio de trabajo:", resultado);
-        return resultado;
-    }
-
     async buscarTodoslosEspaciosTrabajos(user_id){
         const resultado= await Miembro.find({id_usuario:user_id})
         .populate(
@@ -161,4 +150,3 @@ class MemberRepository {
 const member_repository = new MemberRepository();
 
 export default member_repository;
-export { MemberRepository };
